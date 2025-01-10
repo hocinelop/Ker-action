@@ -1,0 +1,52 @@
+name: Ksu
+on:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    uses: ./.github/workflows/check.yml
+
+  ci-test:
+    needs:
+      - lint
+    name: ci-ksu
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Ksu CI
+      uses: ./
+      with:
+          kernel-url: https://github.com/surya-aosp/kernel_xiaomi_surya
+          kernel-dir: ksu
+          kernel-branch: lineage-22
+          config: surya_defconfig
+          arch: arm64
+          extra-cmd: LLVM=1
+          other-clang-url: https://github.com/kdrag0n/proton-clang
+          other-clang-branch: master
+          other-gcc32-url: https://github.com/pomelohan/linux_arm-eabi-gcc
+          other-gcc32-branch: master
+          other-gcc64-url: https://github.com/pomelohan/linux_aarch64-elf-gcc
+          other-gcc64-branch: master
+          ksu: true
+          ksu-version: next
+          ksu-other: true
+          ksu-url: https://github.com/sidex15/KernelSU-Next
+          ksu_susfs-url: https://gitlab.com/simonpunk/susfs4ksu
+          ksu_susfs-branch: kernel-4.14
+          ksu_susfs-version: kernel-4.14
+          disable-lto: true
+          disable_cc_werror: true
+          lxc: true
+          lxc-patch: true
+          nethunter: true
+          nethunter-patch: true
+          bbrplus: true
+          anykernel3: true
