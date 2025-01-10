@@ -48,5 +48,5 @@ jobs:
           lxc-patch: true
           nethunter: true
           nethunter-patch: true
-          bbrplus: true
+          bbrplus: false
           anykernel3: true
