@@ -42,12 +42,7 @@ for i in "${patch_files[@]}"; do
         ;;
 
     net/netfilter/xt_qtaguid.c)
-        sed -i '/int iface_stat_fmt_proc_show/,/^}/ {
-    s/struct rtnl_link_stats64 dev_stats, \*stats/struct rtnl_link_stats64 \*stats/
-    /if (iface_entry->active)/i\
-    \tstats = &no_dev_stats;
-    /if (iface_entry->active)/,+5d
-}' net/netfilter/xt_qtaguid.c
+        echo "no file"
         ;;
     esac
 
